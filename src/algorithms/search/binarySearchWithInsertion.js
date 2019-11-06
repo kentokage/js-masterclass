@@ -1,6 +1,6 @@
-export function binarySearch(nums, value) {
-  let left = 0;
-  let right = nums.length - 1;
+function binarySearchWithInsertion(nums, start, end, value) {
+  let left = start;
+  let right = end - 1;
   let middle = Math.ceil(left + right / 2);
 
   while (left <= right) {
@@ -14,7 +14,7 @@ export function binarySearch(nums, value) {
     middle = Math.ceil((left + right) / 2);
   }
 
-  return -1;
+  return -(middle) - 1;
 }
 
-binarySearch([1, 2, 3, 4, 5, 10, 19], 10);
+console.log(binarySearchWithInsertion([1, 2, 3, 4, 5, 10, 19], 0, 7, 20));
