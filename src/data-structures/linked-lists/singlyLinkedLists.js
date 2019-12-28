@@ -127,7 +127,7 @@ class SinglyLinkedList {
 
 	reverse(head = this.head) {
 
-		// my solution
+		// **my solution
 		// if (this.length === 0 || this.length === 1) return;
 		// [this.tail, this.head] = [this.head, this.tail];
 		// let prev = this.tail;
@@ -143,7 +143,7 @@ class SinglyLinkedList {
 		// 	next = tmp;
 		// }
 
-		// his solution
+		// **his solution
 		// let node = this.head;
 		// this.head = this.tail;
 		// this.tail = node;
@@ -161,20 +161,22 @@ class SinglyLinkedList {
 		let prev = null;    // start at node before old head    
 		let node = this.head;
 	
+		// at each one, just swap next to point to other side
 		while(node) { 
-			let next = node.next;     // save next
-			node.next = prev;
-			prev = node;
-			node = next;
+			let next = node.next;     // save next first
+			node.next = prev;	// set next to reverse side
+			prev = node; 	// prepare for next iteration, set prev node to current node
+			node = next;	// set node to next node
 		}
 
+		// swap
 		[this.head, this.tail] = [this.tail, this.head];
 
 		return this;
 	}
 
 	reverseRecur(head = this.head) {
-		if ((head == null )|| head.next == null) {
+		if (head == null || head.next == null) {
 			return head;
 		}
 
@@ -186,14 +188,87 @@ class SinglyLinkedList {
 		}
 		return reversedListHead;
 	}
+	// test 1
+	// reverseTest() {
+	// 	// prepare
+	// 	let prev = null;
+	// 	let node = this.head;
+
+	// 	// reverse
+	// 	while(node) {
+	// 		let next = node.next; // stashing
+	// 		node.next = prev; // reversing
+	// 		// prepare for next iteration
+	// 		prev = node;
+	// 		node = next;
+	// 	}
+
+	// 	// swap
+	// 	[this.head, this.tail] = [this.tail, this.head];
+
+	// 	return this.head;
+	// }
+
+	// reverseRecurTest(head = this.head) {
+	// 	// base condition
+	// 	if (head === null || head.next === null) {
+	// 		return head;
+	// 	}
+
+	// 	// reverse
+	// 	let listNodeHead = this.reverseRecurTest(head.next);
+	// 	head.next.next = head; // reverse by pointing my next's next to me
+	// 	head.next = null;
+	// 	if (this.head === head) {	// if this is the last stack frame
+	// 		[this.head, this.tail] = [this.tail, this.head];
+	// 	}
+	// 	return listNodeHead;
+	// }
+
+	// test 2
+	reverseTest() {
+		let prev = null;
+		let node = this.head;
+
+		while (node) {
+			let next = node.next;
+			node.next = prev;
+			prev = node;
+			node = next;
+		}
+
+		[this.head, this.tail] = [this.tail, this.head];
+
+		return this.head;
+	}
+
+	reverseRecurTest(head = this.head) {
+		if (head === null || head.next === null)  {
+			return head;
+		}
+
+		let reverseListHead = this.reverseRecurTest(head.next);
+		head.next.next = head;
+		head.next = null;
+
+		if (this.head === head) {
+			[this.head, this.tail] = [this.tail, this.head];
+		}
+
+		return reverseListHead;
+		 
+	}
 }
 
 let list = new SinglyLinkedList();
-// list.push("Hello");
-// list.push("Goodbye");
-// list.push("!");
-// list.push(" <3");
+list.push("Hello");
+list.push("Goodbye");
+list.push("!");
+list.push(" <3");
 
 list.print();
-console.log(list.reverseRecur());
+// console.log(list.reverse());
+// console.log(list.reverseRecur());
+// console.log(list.reverseTest());
+console.log(list.reverseRecurTest());
 list.print();
