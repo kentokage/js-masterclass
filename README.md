@@ -1,1 +1,1 @@
-Practice code from JS masterclass
+Practice code from JS masterclass.
