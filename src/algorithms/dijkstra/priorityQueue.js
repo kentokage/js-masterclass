@@ -1,3 +1,7 @@
+// simple PQ
+// there is a better one using binary heap
+// time: O(n logn) cause of sort
+
 class PriorityQueue {
     constructor() {
         this.values = [];

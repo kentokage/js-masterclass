@@ -16,7 +16,7 @@
 // }
 
 function swap(arr, i, j) {
-  [arr[i], arr[j]] = [arr[j], arr[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
 }
 const input0 = [4, 6, 9, 1, 2, 5];
 const input1 = [4, 8, 2, 1, 5, 7, 6, 3];
@@ -34,31 +34,34 @@ const input2 = [100, -3, 2, 4, 8, 2, 1, 5, 7, 6, 3];
 // 	}
 // }
 
+/* partition, me = pivot, move all values less than me to the left, move all values greater than me to the right, move me to the middle, return swap index */
 const pivot = (arr, start = 0, end = arr.length - 1) => {
-  const pivot = arr[start];
-  let swapIndex = start;
+    const pivot = arr[start];
+    let swapIndex = start;
 
-  for (let i = start + 1; i <= end; i++) {
-    if (pivot > arr[i]) {
-      swapIndex++;
-      swap(arr, swapIndex, i);
+    for (let i = start + 1; i <= end; i++) {
+        if (pivot > arr[i]) {
+            // stuff smaller than me, increment swapIndex++, move it to the left
+            swapIndex++;
+            swap(arr, swapIndex, i); // sometimes it will just swap itself lol
+        }
     }
-  }
 
-  swap(arr, start, swapIndex);
+    swap(arr, start, swapIndex); // inject me into the middle
 
-  return swapIndex;
+    return swapIndex;
 };
 
 const quicksort = (arr, start = 0, end = arr.length - 1) => {
-  if (start < end) {
-    // base condition, only want to compare when indexes are valid, need at least 2 positions to compare
-    let pivotIndex = pivot(arr, start, end);
+    if (start < end) {
+        // base condition, only want to compare when indexes are valid, need at least 2 positions to compare
+        let pivotIndex = pivot(arr, start, end);
 
-    quicksort(arr, 0, pivotIndex - 1);
-    quicksort(arr, pivotIndex + 1, end);
-  }
-  return arr;
+        // at this point, the "pivot" is placed in it's final resting place, sort the left of it, sort the right of it
+        quicksort(arr, 0, pivotIndex - 1);
+        quicksort(arr, pivotIndex + 1, end);
+    }
+    return arr;
 };
 
 console.log(quicksort(input0));
