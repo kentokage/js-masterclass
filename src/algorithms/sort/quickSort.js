@@ -39,6 +39,7 @@ const pivot = (arr, start = 0, end = arr.length - 1) => {
     const pivot = arr[start];
     let swapIndex = start;
 
+    // important that it is <= end, because...i did arr.length - 1
     for (let i = start + 1; i <= end; i++) {
         if (pivot > arr[i]) {
             // stuff smaller than me, increment swapIndex++, move it to the left

@@ -24,7 +24,7 @@ function mergeArray(arr1, arr2) {
         }
     }
 
-    if (x > y) {
+    if (x === arr1.length) {
         result = result.concat(arr2.slice(y));
     } else {
         result = result.concat(arr1.slice(x));
