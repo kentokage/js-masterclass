@@ -5,6 +5,7 @@ class Node {
 	}
 }
 
+// last <-- node <-- node <--first
 class Stack {
 	constructor() {
 		this.first = null;
